@@ -1,5 +1,7 @@
 package com;
 
+import com.exception.MoodAnalysisException;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -29,4 +31,56 @@ public class MoodAnalyzerFactory {
         }
         return null;
     }
+
+    public static MoodAnalyzer createMoodAnalyzer() {
+        try {
+            Class<?> myClass = Class.forName("com.MoodAnalyzer");
+            try {
+                Constructor<?> moodConstructor = myClass.getConstructor();
+                try {
+                    Object moodObject = moodConstructor.newInstance();
+                    MoodAnalyzer moodObject1 = (MoodAnalyzer) moodObject;
+                    return moodObject1;
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//4.2
+    public static MoodAnalyzer createMoodAnalyzer1() {
+        try {
+            Class<?> myClass = Class.forName("com.dummy.MoodAnalyzer");
+            try {
+                Constructor<?> moodConstructor = myClass.getConstructor(String.class);
+                try {
+                    Object moodObject = moodConstructor.newInstance();
+                    MoodAnalyzer moodObject1 = (MoodAnalyzer) moodObject;
+                    return moodObject1;
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

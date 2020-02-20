@@ -95,5 +95,38 @@ public class MoodAnalyzerTest {
         String mood = moodAnalyzer.analyzeMood();
         Assert.assertEquals("HAPPY", mood);
     }
+
+    @Test
+    public void givenMood_WhenProper_ShouldReturnObject1() {
+        try {
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("I am in Happy Mood");
+            Assert.assertEquals(new MoodAnalyzer("I am in Happy Mood"), moodAnalyzer);
+        }catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //4.1
+    @Test
+    public void givenMood_WhenProper_ShouldReturnObject() {
+        try {
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer();
+            Assert.assertEquals(new MoodAnalyzer(), moodAnalyzer);
+        }catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //4.2
+    @Test
+    public void name() {
+        try {
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer1();
+        }catch (MoodAnalysisException e) {
+            e.printStackTrace();
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_CLASS,e.type);
+        }
+
+    }
 }
 

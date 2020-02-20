@@ -5,6 +5,7 @@ import com.exception.MoodAnalysisException;
 public class MoodAnalyzer {
 
     public MoodAnalyzer() {
+        message="Default";
     }
 
     private String message;
@@ -28,5 +29,11 @@ public class MoodAnalyzer {
         } catch (NullPointerException e) {
             throw new MoodAnalysisException(MoodAnalysisException.EnumExceptionType.NULL_MESSAGE, "Please Enter Valid Mood");
         }
+    }
+
+    public boolean equals(Object another) {
+        if(this.message.equals(((MoodAnalyzer) another).message))
+            return true;
+        return false;
     }
 }
