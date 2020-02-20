@@ -94,7 +94,6 @@ public class MoodAnalyzerTest {
         MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer("I am in Happy mood");
         String mood = moodAnalyzer.analyzeMood();
         Assert.assertEquals("HAPPY", mood);
-
     }
 }
 

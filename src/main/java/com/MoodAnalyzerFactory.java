@@ -1,7 +1,5 @@
 package com;
 
-import sun.jvm.hotspot.utilities.Assert;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
