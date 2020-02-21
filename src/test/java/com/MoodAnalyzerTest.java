@@ -126,7 +126,6 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
             Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_CLASS,e.type);
         }
-
     }
 
     //4.2
@@ -150,7 +149,38 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
             Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_METHOD,e.type);
         }
+    }
 
+    //5.2
+    @Test
+    public void givenClassName_WhenImproper_ThrowsMoodAnalysisException() {
+        try {
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMood("com.dummy.MoodAnalyzer.class");
+        }catch (MoodAnalysisException e) {
+            e.printStackTrace();
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_CLASS,e.type);
+        }
+    }
+
+    //6.1
+    @Test
+    public void givenMessage_UsingReflection_WhenProper_ShouldReturnHappyMood() {
+        try {
+            MoodAnalyzer moodObject = MoodAnalyzerFactory.createMoodMethod("I am in Happy Mood");
+            String mood = MoodAnalyzerFactory.invokeMethod(moodObject, "analyzeMood");
+        }catch (MoodAnalysisException e){
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_METHOD, e.type);
+        }
+    }
+
+    //6.2
+    @Test
+    public void givenHappyMessage_WhenImproper_ShouldThrowMoodAnalysisException() {
+        try{
+            MoodAnalyzer moodObject = MoodAnalyzerFactory.createMoodMethod("I am in Happy Mood");
+            String mood = MoodAnalyzerFactory.invokeMethod(moodObject, "analyzeMood");
+        }catch (MoodAnalysisException e){
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_METHOD, e.type);
+        }
     }
 }
-
