@@ -119,12 +119,36 @@ public class MoodAnalyzerTest {
 
     //4.2
     @Test
-    public void name() {
+    public void givenClassName_WhenImproper_ShouldThrowMoodAnalysisException() {
         try {
-            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer1();
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer1("com.dummy.MoodAnalyzer.class");
         }catch (MoodAnalysisException e) {
             e.printStackTrace();
             Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_CLASS,e.type);
+        }
+
+    }
+
+    //4.2
+    @Test
+    public void test() {
+        try {
+            Constructor<?> constructor = MoodAnalyzerFactory.getConstructor("com.dummy.MoodAnalyzer", int.class);
+        }catch (MoodAnalysisException e) {
+            e.printStackTrace();
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_CLASS,e.type);
+        }
+
+    }
+
+    //4.3
+    @Test
+    public void givenClass_WhenConstructorNotProper_ShouldThrowMoodAnalysisException() {
+        try {
+            MoodAnalyzerFactory.getConstructor("com.MoodAnalyzer", int.class);
+        }catch (MoodAnalysisException e) {
+            e.printStackTrace();
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_METHOD,e.type);
         }
 
     }

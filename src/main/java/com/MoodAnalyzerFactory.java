@@ -57,8 +57,20 @@ public class MoodAnalyzerFactory {
         return null;
     }
 
-//4.2
-    public static MoodAnalyzer createMoodAnalyzer1() {
+    //4.2
+    public static Constructor<?> getConstructor(String param, Class constructor) {
+        try {
+            Class<?> moodAnalyzerClass = Class.forName(param);
+            return moodAnalyzerClass.getConstructor(constructor);
+        }catch (ClassNotFoundException e) {
+            throw  new MoodAnalysisException(MoodAnalysisException.EnumExceptionType.NO_SUCH_CLASS, e.getMessage());
+        }catch (NoSuchMethodException e) {
+            throw  new MoodAnalysisException(MoodAnalysisException.EnumExceptionType.NO_SUCH_METHOD, e.getMessage());
+        }
+    }
+
+    //4.2
+    public static MoodAnalyzer createMoodAnalyzer1(String s) {
         try {
             Class<?> myClass = Class.forName("com.dummy.MoodAnalyzer");
             try {
@@ -82,5 +94,7 @@ public class MoodAnalyzerFactory {
         }
         return null;
     }
+
+
 
 }
