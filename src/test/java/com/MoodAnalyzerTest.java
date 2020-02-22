@@ -137,7 +137,6 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
             Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_CLASS,e.type);
         }
-
     }
 
     //4.3
@@ -181,6 +180,42 @@ public class MoodAnalyzerTest {
             String mood = MoodAnalyzerFactory.invokeMethod(moodObject, "analyzeMood");
         }catch (MoodAnalysisException e){
             Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_SUCH_METHOD, e.type);
+        }
+    }
+
+    //7.1
+    @Test
+    public void setField() {
+        try{
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer();
+            String mood = MoodAnalyzerFactory.setFieldValue(moodAnalyzer, "I am in Happy Mood", "message");
+            Assert.assertEquals("HAPPY", mood);
+        }catch (MoodAnalysisException e){
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.INVOCATION_TARGET, e.type);
+        }
+    }
+
+    //7.2
+    @Test
+    public void setField_WhenImproper_ShouldThrowExceptionWithNoSuchField() {
+        try{
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer();
+            String mood = MoodAnalyzerFactory.setFieldValue(moodAnalyzer, "I am in Happy Mood", "mess");
+            Assert.assertEquals("HAPPY", mood);
+        }catch (MoodAnalysisException e){
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_FIELD, e.type);
+        }
+    }
+
+    //7.3
+    @Test
+    public void settingNullMessage_WithReflector_ShouldThrowException() {
+        try{
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.createMoodAnalyzer();
+            String mood = MoodAnalyzerFactory.setFieldValue(moodAnalyzer, "I am in Mood", "message");
+            Assert.assertEquals("HAPPY", mood);
+        }catch (MoodAnalysisException e){
+            Assert.assertEquals(MoodAnalysisException.EnumExceptionType.NO_FIELD, e.type);
         }
     }
 }
